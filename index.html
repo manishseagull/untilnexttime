@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thank You</title>
+<title>Until Next Time — Manish Sehgal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -168,6 +168,138 @@
   }
   .note:hover .plus, .note:focus-visible .plus{ color: var(--accent); }
 
+
+  /* ---- Section chooser ---- */
+  .section-board{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .section-card{
+    all: unset;
+    cursor: pointer;
+    position: relative;
+    min-height: 220px;
+    padding: 36px clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .section-card:nth-child(2){ border-right: none; }
+  .section-card:hover, .section-card:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+    outline: none;
+  }
+  .section-card-title{
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .section-card-subtitle{
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
+  .section-card:hover .section-card-subtitle,
+  .section-card:focus-visible .section-card-subtitle{ color: rgba(242,240,235,0.7); }
+  .section-card-plus{
+    position: absolute;
+    top: 30px;
+    right: clamp(20px, 4vw, 48px);
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+  }
+
+  /* ---- People chooser ---- */
+  .people-overlay{
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 20;
+  }
+  .people-overlay.open{
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .people-inner{
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    padding: 28px clamp(20px, 4vw, 48px) 60px;
+  }
+  .people-back{
+    all: unset;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+    margin-bottom: 55px;
+  }
+  .people-back:hover{ color: var(--accent); border-color: var(--accent); }
+  .people-heading h2{
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: 0.95;
+    margin: 0 0 12px;
+  }
+  .people-heading p{
+    color: var(--ink-soft);
+    margin: 0 0 38px;
+  }
+  .people-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .person-card{
+    all: unset;
+    cursor: pointer;
+    min-height: 150px;
+    padding: 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.25rem;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .person-card:hover, .person-card:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+    outline: none;
+  }
+  .person-card .plus{
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem;
+  }
+
+  @media (max-width: 720px){
+    .section-board{ grid-template-columns: 1fr; }
+    .section-card:nth-child(2){ border-right: none; }
+    .people-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px){
+    .people-grid{ grid-template-columns: 1fr; }
+  }
+
   /* ---- Overlay ---- */
   .overlay{
     position: fixed;
@@ -256,7 +388,7 @@
 <body>
 
   <div class="topbar">
-    <span class="mark">[YOUR NAME]<sup>.</sup></span>
+    <span class="mark">Manish Sehgal<sup>.</sup></span>
   </div>
 
   <div class="hero">
@@ -267,37 +399,48 @@
     <div class="hero-text">
       <h1>THANK<br>YOU<span class="dot">.</span></h1>
       <!-- EDIT THIS: replace with your own 3-5 line thank-you note -->
-      <p class="note">[Write your farewell note here — a few lines about your time here, what it meant to you, and a genuine thank you to the people who made it worthwhile.]</p>
-      <p class="sign">— [Your name]</p>
+      <p class="note">Every chapter teaches us something — not just through the work, but through the people we meet along the way. I’ve learned a lot from each of you, and from the people who were part of this team before us. Thank you for the conversations, the support, the challenges, the laughs, and everything in between.<br><br>
+Wishing each of you continued growth and many more great chapters ahead. This may be a goodbye to the everyday, but it doesn’t have to be goodbye altogether. I’m always just a phone call away — whether you need a hand, want to catch up, or simply feel like saying hello.</p>
+      <p class="sign">— Manish Sehgal</p>
       <div class="hero-links">
-        <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LINKEDIN</a>
-        <a href="mailto:you@example.com">EMAIL</a>
+        <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LINKEDIN</a>
+        <a href="mailto:sehgalmanish563@gmail.com">EMAIL</a>
       </div>
     </div>
   </div>
 
-  <p class="section-label">A few notes for different people — click to read</p>
+  <p class="section-label">A few notes for different people — choose a section to explore</p>
 
-  <div class="board">
-    <button class="note" data-title="For My Team" data-message="[Your message to your immediate team — the people you worked with day to day.]">
-      My Team <span class="plus">+</span>
+  <div class="section-board">
+    <button class="section-card" data-section="team">
+      <span class="section-card-title">The Team</span>
+            <span class="section-card-plus">+</span>
     </button>
-    <button class="note" data-title="For My Manager &amp; Leaders" data-message="[Your message to your manager and leadership — thanks for the guidance, opportunities, trust, etc.]">
-      Manager &amp; Leaders <span class="plus">+</span>
+
+    <button class="section-card" data-section="leaders">
+      <span class="section-card-title">Managers &amp; Leaders</span>
+            <span class="section-card-plus">+</span>
     </button>
-    <button class="note" data-title="For Cross-Functional Partners" data-message="[Your message to other teams and stakeholders you collaborated with across the org.]">
-      Cross-Functional Partners <span class="plus">+</span>
-    </button>
-    <button class="note" data-title="For Friends I Made Along the Way" data-message="[Your personal note to the friends and colleagues you bonded with beyond work.]">
-      Friends Along the Way <span class="plus">+</span>
-    </button>
+  </div>
+
+  <div class="people-overlay" id="people-overlay">
+    <div class="people-inner">
+      <button class="people-back" id="people-close">← back</button>
+      <div class="people-heading">
+        <span class="tag" id="people-tag">THE TEAM</span>
+        <h2 id="people-heading-title">The Team</h2>
+        <p>Choose a name to read the personal note.</p>
+      </div>
+      <div class="people-grid" id="people-grid"></div>
+    </div>
   </div>
 
   <div class="footer">
     <p>This isn't goodbye — let's stay in touch.</p>
     <div class="links">
-      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:you@example.com">Email</a>
+      <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:sehgalmanish563@gmail.com">Email</a>
+      <a href="https://wa.me/918093319923" target="_blank" rel="noopener">WhatsApp</a>
     </div>
   </div>
 
@@ -316,18 +459,72 @@
   const overlayMessage = document.getElementById('overlay-message');
   const closeBtn = document.getElementById('overlay-close');
 
-  document.querySelectorAll('.note').forEach(note => {
-    note.addEventListener('click', () => {
-      overlayTitle.textContent = note.dataset.title;
-      overlayMessage.textContent = note.dataset.message;
-      overlay.classList.add('open');
-    });
+  const peopleOverlay = document.getElementById('people-overlay');
+  const peopleGrid = document.getElementById('people-grid');
+  const peopleClose = document.getElementById('people-close');
+  const peopleHeadingTitle = document.getElementById('people-heading-title');
+  const peopleTag = document.getElementById('people-tag');
+
+  const teamMembers = Array.from({length: 14}, (_, i) => ({
+    title: `Team Member ${i + 1}`,
+    message: `[Personalized message for Team Member ${i + 1} — replace this with your note.]`
+  }));
+
+  const leaders = Array.from({length: 4}, (_, i) => ({
+    title: `Manager & Leader ${i + 1}`,
+    message: `[Personalized message for Manager & Leader ${i + 1} — replace this with your note.]`
+  }));
+
+  function openPeople(section){
+    const people = section === 'team' ? teamMembers : leaders;
+    const title = section === 'team' ? 'The Team' : 'Managers & Leaders';
+
+    peopleHeadingTitle.textContent = title;
+    peopleTag.textContent = section === 'team' ? 'THE TEAM' : 'MANAGERS & LEADERS';
+
+    peopleGrid.innerHTML = people.map((person, index) => `
+      <button class="person-card" data-index="${index}" data-section="${section}">
+        ${person.title} <span class="plus">+</span>
+      </button>
+    `).join('');
+
+    peopleOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  document.querySelectorAll('.section-card').forEach(card => {
+    card.addEventListener('click', () => openPeople(card.dataset.section));
+  });
+
+  peopleGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.person-card');
+    if (!card) return;
+
+    const people = card.dataset.section === 'team' ? teamMembers : leaders;
+    const person = people[Number(card.dataset.index)];
+
+    overlayTitle.textContent = person.title;
+    overlayMessage.textContent = person.message;
+    overlay.classList.add('open');
   });
 
   function closeOverlay(){ overlay.classList.remove('open'); }
   closeBtn.addEventListener('click', closeOverlay);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
+
+  function closePeople(){
+    peopleOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  peopleClose.addEventListener('click', closePeople);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (overlay.classList.contains('open')) closeOverlay();
+      else if (peopleOverlay.classList.contains('open')) closePeople();
+    }
+  });
 </script>
 
 </body>

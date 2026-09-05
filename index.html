@@ -4,22 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Until Next Time — Manish Sehgal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --accent: #D9694F;
-    --bg: #F2F0EB;
-    --ink: #171614;
-    --ink-soft: #6B6862;
-    --line: rgba(0,0,0,0.12);
+    --accent: #7E939C;
+    --bg: #F6F4EE;
+    --ink: #2E3A44;
+    --ink-soft: #4C5F6B;
+    --line: rgba(46,58,68,0.16);
+    --blue-dark: #2E3A44;
+    --blue-mid: #4C5F6B;
+    --blue-light: #B0C2C6;
+    --mist: #DDE4E1;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body{
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     color: var(--ink);
     background: var(--bg);
   }
@@ -34,7 +35,7 @@
     z-index: 5;
   }
   .topbar .mark{
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 0.02em;
@@ -49,7 +50,7 @@
   }
   .hero-color{
     position: relative;
-    background: var(--accent);
+    background: var(--blue-mid);
     min-height: 320px;
   }
   .hero-color .side-label{
@@ -58,7 +59,7 @@
     left: 28px;
     transform: translateY(-50%) rotate(180deg);
     writing-mode: vertical-rl;
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.15em;
     color: rgba(23,22,20,0.55);
@@ -82,7 +83,7 @@
     position: relative;
   }
   .hero-text h1{
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: clamp(3rem, 8vw, 6rem);
     line-height: 0.92;
@@ -99,7 +100,7 @@
   }
   .hero-text .sign{
     margin-top: 22px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 1rem;
   }
@@ -124,7 +125,7 @@
   /* ---- Notes section ---- */
   .section-label{
     padding: 70px clamp(20px, 4vw, 48px) 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.85rem;
     color: var(--ink-soft);
     border-top: 1px solid var(--line);
@@ -149,7 +150,7 @@
     padding: 36px clamp(20px, 4vw, 48px);
     border-bottom: 1px solid var(--line);
     border-right: 1px solid var(--line);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: clamp(1.2rem, 2.2vw, 1.6rem);
     font-weight: 500;
     transition: background 0.15s ease, color 0.15s ease;
@@ -161,7 +162,7 @@
   }
   .note:focus-visible{ outline: none; }
   .note .plus{
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-size: 1.4rem;
     color: var(--accent);
@@ -187,7 +188,7 @@
     flex-direction: column;
     justify-content: flex-end;
     gap: 8px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     transition: background 0.18s ease, color 0.18s ease;
   }
   .section-card:nth-child(2){ border-right: none; }
@@ -202,7 +203,7 @@
     line-height: 1;
   }
   .section-card-subtitle{
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     color: var(--ink-soft);
     font-size: 0.85rem;
   }
@@ -213,7 +214,7 @@
     top: 30px;
     right: clamp(20px, 4vw, 48px);
     color: var(--accent);
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 1.8rem;
   }
 
@@ -242,7 +243,7 @@
   .people-back{
     all: unset;
     cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9rem;
     border-bottom: 1px solid var(--ink);
     padding-bottom: 3px;
@@ -250,7 +251,7 @@
   }
   .people-back:hover{ color: var(--accent); border-color: var(--accent); }
   .people-heading h2{
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: clamp(2.4rem, 6vw, 4.5rem);
     line-height: 0.95;
     margin: 0 0 12px;
@@ -276,7 +277,7 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 16px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 1.25rem;
     transition: background 0.15s ease, color 0.15s ease;
   }
@@ -287,7 +288,7 @@
   }
   .person-card .plus{
     color: var(--accent);
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 1.35rem;
   }
 
@@ -326,14 +327,14 @@
     display: inline-block;
     background: var(--accent);
     color: var(--ink);
-    font-family: 'Inter', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     padding: 4px 10px;
     margin-bottom: 20px;
   }
   .overlay-inner h2{
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     line-height: 1.05;
@@ -349,7 +350,7 @@
   .close-btn{
     all: unset;
     cursor: pointer;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9rem;
     border-bottom: 1px solid var(--ink);
     padding-bottom: 2px;

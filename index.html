@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent: #D9694F;
+    --bg: #F2F0EB;
+    --ink: #171614;
+    --ink-soft: #6B6862;
+    --line: rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+
+  /* ---- Top bar ---- */
+  .topbar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px clamp(20px, 4vw, 48px);
+    z-index: 5;
+  }
+  .topbar .mark{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  .topbar .mark sup{ color: var(--accent); }
+
+  /* ---- Hero split ---- */
+  .hero{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 82vh;
+  }
+  .hero-color{
+    position: relative;
+    background: var(--accent);
+    min-height: 320px;
+  }
+  .hero-color .side-label{
+    position: absolute;
+    top: 50%;
+    left: 28px;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: rgba(23,22,20,0.55);
+  }
+  .hero-color .scroll-cue{
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: rgba(23,22,20,0.6);
+  }
+
+  .hero-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 88px);
+    position: relative;
+  }
+  .hero-text h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.92;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero-text h1 .dot{ color: var(--accent); }
+  .hero-text .note{
+    margin-top: 28px;
+    max-width: 34ch;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .hero-text .sign{
+    margin-top: 22px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .hero-links{
+    position: absolute;
+    top: 50%;
+    right: clamp(16px, 3vw, 36px);
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+  .hero-links a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    writing-mode: vertical-rl;
+  }
+  .hero-links a:hover{ color: var(--ink); }
+
+  /* ---- Notes section ---- */
+  .section-label{
+    padding: 70px clamp(20px, 4vw, 48px) 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+  }
+
+  .board{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 720px){
+    .board{ grid-template-columns: 1fr; }
+    .hero{ grid-template-columns: 1fr; }
+  }
+
+  .note{
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .note:nth-child(2n){ border-right: none; }
+  .note:hover, .note:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .note:focus-visible{ outline: none; }
+  .note .plus{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .note:hover .plus, .note:focus-visible .plus{ color: var(--accent); }
+
+  /* ---- Overlay ---- */
+  .overlay{
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+  }
+  .overlay.open{ opacity: 1; pointer-events: auto; }
+  .overlay-inner{
+    max-width: 620px;
+    width: 100%;
+    transform: translateY(10px);
+    transition: transform 0.25s ease;
+  }
+  .overlay.open .overlay-inner{ transform: translateY(0); }
+  .overlay-inner .tag{
+    display: inline-block;
+    background: var(--accent);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    margin-bottom: 20px;
+  }
+  .overlay-inner h2{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    margin: 0 0 22px;
+  }
+  .overlay-inner p{
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 30px;
+    max-width: 48ch;
+  }
+  .close-btn{
+    all: unset;
+    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .close-btn:hover{ color: var(--accent); border-color: var(--accent); }
+
+  /* ---- Footer ---- */
+  .footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 40px clamp(20px, 4vw, 48px) 48px;
+    border-top: 1px solid var(--line);
+  }
+  .footer p{
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .footer .links a{
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 22px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--ink);
+  }
+  .footer .links a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce){
+    .overlay, .overlay-inner, .note{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="mark">[YOUR NAME]<sup>.</sup></span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-color">
+      <span class="side-label">FAREWELL NOTE</span>
+      <span class="scroll-cue">↓<br>scroll</span>
+    </div>
+    <div class="hero-text">
+      <h1>THANK<br>YOU<span class="dot">.</span></h1>
+      <!-- EDIT THIS: replace with your own 3-5 line thank-you note -->
+      <p class="note">[Write your farewell note here — a few lines about your time here, what it meant to you, and a genuine thank you to the people who made it worthwhile.]</p>
+      <p class="sign">— [Your name]</p>
+      <div class="hero-links">
+        <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LINKEDIN</a>
+        <a href="mailto:you@example.com">EMAIL</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">A few notes for different people — click to read</p>
+
+  <div class="board">
+    <button class="note" data-title="For My Team" data-message="[Your message to your immediate team — the people you worked with day to day.]">
+      My Team <span class="plus">+</span>
+    </button>
+    <button class="note" data-title="For My Manager &amp; Leaders" data-message="[Your message to your manager and leadership — thanks for the guidance, opportunities, trust, etc.]">
+      Manager &amp; Leaders <span class="plus">+</span>
+    </button>
+    <button class="note" data-title="For Cross-Functional Partners" data-message="[Your message to other teams and stakeholders you collaborated with across the org.]">
+      Cross-Functional Partners <span class="plus">+</span>
+    </button>
+    <button class="note" data-title="For Friends I Made Along the Way" data-message="[Your personal note to the friends and colleagues you bonded with beyond work.]">
+      Friends Along the Way <span class="plus">+</span>
+    </button>
+  </div>
+
+  <div class="footer">
+    <p>This isn't goodbye — let's stay in touch.</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:you@example.com">Email</a>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="overlay-inner">
+      <span class="tag">personal note</span>
+      <h2 id="overlay-title"></h2>
+      <p id="overlay-message"></p>
+      <button class="close-btn" id="overlay-close">close ×</button>
+    </div>
+  </div>
+
+<script>
+  const overlay = document.getElementById('overlay');
+  const overlayTitle = document.getElementById('overlay-title');
+  const overlayMessage = document.getElementById('overlay-message');
+  const closeBtn = document.getElementById('overlay-close');
+
+  document.querySelectorAll('.note').forEach(note => {
+    note.addEventListener('click', () => {
+      overlayTitle.textContent = note.dataset.title;
+      overlayMessage.textContent = note.dataset.message;
+      overlay.classList.add('open');
+    });
+  });
+
+  function closeOverlay(){ overlay.classList.remove('open'); }
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlay(); });
+</script>
+
+</body>
+</html>

@@ -4,21 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Until Next Time — Manish Sehgal</title>
-
-<!-- Social preview: shows up when this link is pasted into Slack/WhatsApp/email -->
-<meta property="og:title" content="Until Next Time — Manish Sehgal">
-<meta property="og:description" content="A short thank-you note before I go, and a few personal messages along the way.">
-<meta property="og:type" content="website">
-<!-- EDIT THIS: once your GitHub Pages URL is live, add it here for a proper preview card -->
-<!-- <meta property="og:url" content="https://yourusername.github.io/farewell/"> -->
-<!-- <meta property="og:image" content="https://yourusername.github.io/farewell/preview.png"> -->
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%237E939C'/%3E%3Ctext x='32' y='42' font-family='Helvetica, Arial, sans-serif' font-size='28' font-weight='700' fill='%23F6F4EE' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-
 <style>
   :root{
     --accent: #7E939C;
@@ -26,7 +11,10 @@
     --ink: #2E3A44;
     --ink-soft: #4C5F6B;
     --line: rgba(46,58,68,0.16);
+    --blue-dark: #2E3A44;
     --blue-mid: #4C5F6B;
+    --blue-light: #B0C2C6;
+    --mist: #DDE4E1;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -35,17 +23,6 @@
     font-family: Helvetica, Arial, sans-serif;
     color: var(--ink);
     background: var(--bg);
-  }
-
-  /* ---- Scroll progress ---- */
-  .progress{
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    width: 0%;
-    background: var(--accent);
-    z-index: 50;
-    transition: width 0.08s linear;
   }
 
   /* ---- Top bar ---- */
@@ -58,6 +35,7 @@
     z-index: 5;
   }
   .topbar .mark{
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 0.02em;
@@ -74,16 +52,6 @@
     position: relative;
     background: var(--blue-mid);
     min-height: 320px;
-    overflow: hidden;
-  }
-  .hero-color::after{
-    content: "";
-    position: absolute;
-    inset: -20%;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
   }
   .hero-color .side-label{
     position: absolute;
@@ -91,10 +59,10 @@
     left: 28px;
     transform: translateY(-50%) rotate(180deg);
     writing-mode: vertical-rl;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.68rem;
     letter-spacing: 0.15em;
     color: rgba(23,22,20,0.55);
-    transition: transform 0.1s linear;
   }
   .hero-color .scroll-cue{
     position: absolute;
@@ -115,40 +83,26 @@
     position: relative;
   }
   .hero-text h1{
-    font-family: 'Space Grotesk', Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: clamp(3rem, 8vw, 6rem);
     line-height: 0.92;
     margin: 0;
     letter-spacing: -0.02em;
   }
-  .hero-text h1 span{
-    display: block;
-    opacity: 0;
-    transform: translateY(18px);
-    animation: riseIn 0.7s cubic-bezier(.2,.8,.3,1) forwards;
-  }
-  .hero-text h1 .line1{ animation-delay: 0.1s; }
-  .hero-text h1 .line2{ animation-delay: 0.32s; }
   .hero-text h1 .dot{ color: var(--accent); }
-  @keyframes riseIn{
-    to{ opacity: 1; transform: translateY(0); }
-  }
   .hero-text .note{
     margin-top: 28px;
     max-width: 34ch;
     font-size: 1.02rem;
     line-height: 1.6;
     color: var(--ink-soft);
-    opacity: 0;
-    animation: riseIn 0.7s cubic-bezier(.2,.8,.3,1) 0.5s forwards;
   }
   .hero-text .sign{
     margin-top: 22px;
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 500;
     font-size: 1rem;
-    opacity: 0;
-    animation: riseIn 0.7s cubic-bezier(.2,.8,.3,1) 0.62s forwards;
   }
   .hero-links{
     position: absolute;
@@ -168,13 +122,55 @@
   }
   .hero-links a:hover{ color: var(--ink); }
 
-  /* ---- Section chooser ---- */
+  /* ---- Notes section ---- */
   .section-label{
     padding: 70px clamp(20px, 4vw, 48px) 20px;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.85rem;
     color: var(--ink-soft);
     border-top: 1px solid var(--line);
   }
+
+  .board{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 720px){
+    .board{ grid-template-columns: 1fr; }
+    .hero{ grid-template-columns: 1fr; }
+  }
+
+  .note{
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 36px clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .note:nth-child(2n){ border-right: none; }
+  .note:hover, .note:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .note:focus-visible{ outline: none; }
+  .note .plus{
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--accent);
+  }
+  .note:hover .plus, .note:focus-visible .plus{ color: var(--accent); }
+
+
+  /* ---- Section chooser ---- */
   .section-board{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -192,6 +188,7 @@
     flex-direction: column;
     justify-content: flex-end;
     gap: 8px;
+    font-family: Helvetica, Arial, sans-serif;
     transition: background 0.18s ease, color 0.18s ease;
   }
   .section-card:nth-child(2){ border-right: none; }
@@ -206,6 +203,7 @@
     line-height: 1;
   }
   .section-card-subtitle{
+    font-family: Helvetica, Arial, sans-serif;
     color: var(--ink-soft);
     font-size: 0.85rem;
   }
@@ -216,11 +214,9 @@
     top: 30px;
     right: clamp(20px, 4vw, 48px);
     color: var(--accent);
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 1.8rem;
-    transition: transform 0.18s ease;
   }
-  .section-card:hover .section-card-plus,
-  .section-card:focus-visible .section-card-plus{ transform: scale(1.25); }
 
   /* ---- People chooser ---- */
   .people-overlay{
@@ -247,30 +243,22 @@
   .people-back{
     all: unset;
     cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9rem;
     border-bottom: 1px solid var(--ink);
     padding-bottom: 3px;
     margin-bottom: 55px;
   }
   .people-back:hover{ color: var(--accent); border-color: var(--accent); }
-  .people-heading .tag{
-    display: inline-block;
-    background: var(--accent);
-    color: var(--ink);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    padding: 4px 10px;
-    margin-bottom: 16px;
-  }
   .people-heading h2{
+    font-family: Helvetica, Arial, sans-serif;
     font-size: clamp(2.4rem, 6vw, 4.5rem);
     line-height: 0.95;
     margin: 0 0 12px;
   }
-  .people-heading .count{
+  .people-heading p{
     color: var(--ink-soft);
     margin: 0 0 38px;
-    font-size: 0.95rem;
   }
   .people-grid{
     display: grid;
@@ -282,49 +270,27 @@
     all: unset;
     cursor: pointer;
     min-height: 150px;
-    padding: 20px 24px;
+    padding: 24px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     display: flex;
-    flex-direction: column;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 16px;
-    font-size: 1.15rem;
-    transition: background 0.15s ease, color 0.15s ease, opacity 0.35s ease, transform 0.35s ease;
-    opacity: 0;
-    transform: translateY(10px);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.25rem;
+    transition: background 0.15s ease, color 0.15s ease;
   }
-  .person-card.show{ opacity: 1; transform: translateY(0); }
   .person-card:hover, .person-card:focus-visible{
     background: var(--ink);
     color: var(--bg);
     outline: none;
   }
-  .person-card .row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .person-card .avatar{
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: var(--ink);
-    font-size: 0.78rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
   .person-card .plus{
     color: var(--accent);
-    font-size: 1.3rem;
-    transition: transform 0.18s ease;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.35rem;
   }
-  .person-card:hover .plus, .person-card:focus-visible .plus{ transform: scale(1.3); }
 
   @media (max-width: 720px){
     .section-board{ grid-template-columns: 1fr; }
@@ -347,7 +313,7 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.2s ease;
-    z-index: 30;
+    z-index: 10;
   }
   .overlay.open{ opacity: 1; pointer-events: auto; }
   .overlay-inner{
@@ -361,12 +327,14 @@
     display: inline-block;
     background: var(--accent);
     color: var(--ink);
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     padding: 4px 10px;
     margin-bottom: 20px;
   }
   .overlay-inner h2{
+    font-family: Helvetica, Arial, sans-serif;
     font-weight: 700;
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     line-height: 1.05;
@@ -382,6 +350,7 @@
   .close-btn{
     all: unset;
     cursor: pointer;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 0.9rem;
     border-bottom: 1px solid var(--ink);
     padding-bottom: 2px;
@@ -413,33 +382,26 @@
   .footer .links a:hover{ color: var(--accent); border-color: var(--accent); }
 
   @media (prefers-reduced-motion: reduce){
-    .overlay, .overlay-inner, .note, .person-card, .hero-text h1 span, .hero-text .note, .hero-text .sign{
-      transition: none;
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
+    .overlay, .overlay-inner, .note{ transition: none; }
   }
 </style>
 </head>
 <body>
-
-  <div class="progress" id="progress"></div>
 
   <div class="topbar">
     <span class="mark">Manish Sehgal<sup>.</sup></span>
   </div>
 
   <div class="hero">
-    <div class="hero-color" id="hero-color">
+    <div class="hero-color">
       <span class="side-label">FAREWELL NOTE</span>
       <span class="scroll-cue">↓<br>scroll</span>
     </div>
     <div class="hero-text">
-      <h1><span class="line1">THANK</span><span class="line2">YOU<span class="dot">.</span></span></h1>
+      <h1>THANK<br>YOU<span class="dot">.</span></h1>
       <!-- EDIT THIS: replace with your own 3-5 line thank-you note -->
-      <p class="note">Every chapter teaches us something — not just through the work, but through the people we meet along the way. I've learned a lot from each of you, and from the people who were part of this team before us. Thank you for the conversations, the support, the challenges, the laughs, and everything in between.<br><br>
-Wishing each of you continued growth and many more great chapters ahead. This may be a goodbye to the everyday, but it doesn't have to be goodbye altogether. I'm always just a phone call away — whether you need a hand, want to catch up, or simply feel like saying hello.</p>
+      <p class="note">Every chapter teaches us something — not just through the work, but through the people we meet along the way. I’ve learned a lot from each of you, and from the people who were part of this team before us. Thank you for the conversations, the support, the challenges, the laughs, and everything in between.<br><br>
+Wishing each of you continued growth and many more great chapters ahead. This may be a goodbye to the everyday, but it doesn’t have to be goodbye altogether. I’m always just a phone call away — whether you need a hand, want to catch up, or simply feel like saying hello.</p>
       <p class="sign">— Manish Sehgal</p>
       <div class="hero-links">
         <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LINKEDIN</a>
@@ -453,12 +415,12 @@ Wishing each of you continued growth and many more great chapters ahead. This ma
   <div class="section-board">
     <button class="section-card" data-section="team">
       <span class="section-card-title">The Team</span>
-      <span class="section-card-plus">+</span>
+            <span class="section-card-plus">+</span>
     </button>
 
     <button class="section-card" data-section="leaders">
       <span class="section-card-title">Managers &amp; Leaders</span>
-      <span class="section-card-plus">+</span>
+            <span class="section-card-plus">+</span>
     </button>
   </div>
 
@@ -468,7 +430,7 @@ Wishing each of you continued growth and many more great chapters ahead. This ma
       <div class="people-heading">
         <span class="tag" id="people-tag">THE TEAM</span>
         <h2 id="people-heading-title">The Team</h2>
-        <p class="count" id="people-count">Choose a name to read the personal note.</p>
+        <p>Choose a name to read the personal note.</p>
       </div>
       <div class="people-grid" id="people-grid"></div>
     </div>
@@ -493,75 +455,33 @@ Wishing each of you continued growth and many more great chapters ahead. This ma
   </div>
 
 <script>
-  /* Scroll progress bar */
-  const progress = document.getElementById('progress');
-  const sideLabel = document.querySelector('.side-label');
-  function onScroll(){
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progress.style.width = pct + '%';
-    if (sideLabel) sideLabel.style.transform = `translateY(calc(-50% - ${scrollTop * 0.08}px)) rotate(180deg)`;
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* Overlay (single note) */
   const overlay = document.getElementById('overlay');
   const overlayTitle = document.getElementById('overlay-title');
   const overlayMessage = document.getElementById('overlay-message');
   const closeBtn = document.getElementById('overlay-close');
 
-  /* People chooser */
   const peopleOverlay = document.getElementById('people-overlay');
   const peopleGrid = document.getElementById('people-grid');
   const peopleClose = document.getElementById('people-close');
   const peopleHeadingTitle = document.getElementById('people-heading-title');
   const peopleTag = document.getElementById('people-tag');
-  const peopleCount = document.getElementById('people-count');
 
-  const teamMembers = Array.from({length: 14}, (_, i) => ({
-    title: `Team Member ${i + 1}`,
-    message: `[Personalized message for Team Member ${i + 1} — replace this with your note.]`
-  }));
-
-  const leaders = Array.from({length: 4}, (_, i) => ({
-    title: `Manager & Leader ${i + 1}`,
-    message: `[Personalized message for Manager & Leader ${i + 1} — replace this with your note.]`
-  }));
-
-  function initials(name){
-    return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-  }
-
-  function openPeople(section){
-    const people = section === 'team' ? teamMembers : leaders;
-    const title = section === 'team' ? 'The Team' : 'Managers & Leaders';
-
-    peopleHeadingTitle.textContent = title;
-    peopleTag.textContent = section === 'team' ? 'THE TEAM' : 'MANAGERS & LEADERS';
-    peopleCount.textContent = `${people.length} note${people.length !== 1 ? 's' : ''} — choose a name to read it`;
-
-    peopleGrid.innerHTML = people.map((person, index) => `
-      <button class="person-card" data-index="${index}" data-section="${section}">
-        <span class="avatar">${initials(person.title)}</span>
-        <span class="row">${person.title} <span class="plus">+</span></span>
-      </button>
-    `).join('');
-
-    peopleOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.person-card').forEach((card, i) => {
-        card.style.transitionDelay = `${i * 40}ms`;
-        requestAnimationFrame(() => card.classList.add('show'));
-      });
-    });
-  }
-
-  document.querySelectorAll('.section-card').forEach(card => {
-    card.addEventListener('click', () => openPeople(card.dataset.section));
-  });
+  const teamMembers = [
+    { title: "Arumalla Duharika", message: "Duharika, welcome to the team! You joined us and almost immediately had another big milestone to celebrate — congratulations on tying the knot! Wishing you all the happiness and success as you begin this new chapter, both personally and professionally. I’m sure you’re going to do wonderfully here. All the very best for everything ahead!" },
+    { title: "Ankita Balyan", message: "Ankita, it was lovely having you as part of the team. Thank you for all the conversations, support and the little moments that made the workdays more enjoyable. I’m glad our paths crossed during my time here, and I hope you continue to learn, grow and do great things. Wishing you nothing but the very best for everything ahead!" },
+    { title: "Subhadip Bose", message: "Subhadip, every conversation with you was entertaining, interesting, and somehow always left me with something new to think about. I’ve genuinely learnt a lot just by watching your style of working and the way you approach things. It would have been even more fun if you had actually been with us in Bangalore — I’m sure we would have had quite a few stories to tell! Wishing you all the best, and hopefully our paths cross again." },
+    { title: "Anzia Joseph", message: "Anzia, I think it’s safe to say that the team’s fashion quotient was never complete without you! 😄 Beyond the style, it was always lovely having you around and being part of the team. Thank you for all the good moments and for making the workplace a little more lively. Wishing you loads of success and happiness in everything that comes next!" },
+    { title: "Jyoti Kumari", message: "Jyoti, although our interactions were relatively short, I have a feeling you’ve already gotten the hang of things here rather quickly. You seem to have settled in and found your rhythm in no time. I’m sure there’s a lot more ahead for you, and I hope you continue to learn, grow and make the most of the opportunities that come your way. All the very best!" },
+    { title: "Sudha Kumari", message: "Sudha, thank you for always being so understanding and accommodating, especially with all my last-minute shift-swap requests! 😄 I know I probably tested your flexibility more than a few times, but you were always willing to help and make things work. I really appreciate that. Thank you for being such a dependable teammate, and I wish you nothing but the very best ahead!" },
+    { title: "Deeya Mukherjee", message: "Deeya, you were the second person in this team who could put the fear of God in me! 😄 But honestly, thank you for pushing me to deliver the best possible outcome and for never hesitating to challenge me when you knew something could be better. And despite all that, you were always there whenever I had a doubt or needed help. I genuinely appreciate that balance of pushing me and supporting me. It was a pleasure working with you — keep being awesome!" },
+    { title: "Ankitha Nayak", message: "Ankitha, the unofficial gang leader! 😄 Going to the office was honestly a lot more fun because of you and the gang. A big part of the memories I’m taking away from here are those little moments outside of work that made the workdays enjoyable. I’m definitely looking forward to joining you guys for a weekend run soon — only if Bangalore wasn’t quite this big! 😂 Keep the gang together, and I hope we stay in touch." },
+    { title: "Manjima Shaju", message: "Manjima, anxious, meticulous, methodical, curious and incredibly diligent — that’s quite a combination! 😄 From the beginning, it was clear that you genuinely wanted to understand things properly rather than just get through them, and that’s something I really admired. It was a pleasure helping you learn the ropes of IT, and I have high hopes for what you’ll go on to do. I hope this phase of your journey was as memorable for you as it was for me. Keep asking questions, keep learning and keep growing!" },
+    { title: "Nagarjun Sunku", message: "Nagarjun, thank you for believing in me and for helping me grow throughout my time here. What I find incredible is how much I’ve seen you grow as well — both personally and professionally — and how that growth consistently inspired me to keep pushing myself too. I’m genuinely grateful that our paths crossed, and I hope they cross again somewhere down the road. It would be great to work together again someday. Until then, keep growing and inspiring!" },
+    { title: "Wafi Mirza", message: "Wafi, while we may not have had as many opportunities to interact, I’m glad we got to be part of the same team and share this part of the journey. Thank you for being a good teammate and for all the interactions we did have. Wishing you continued success, plenty of learning and many good things ahead. All the very best for your journey!" },
+    { title: "Mayur Vaidakar", message: "Mayur, the last man standing! 😄 You were a very important part of our little virtual gang — a gang that somehow managed to build such a strong bond without ever really managing to meet offline. Work was definitely a lot more bearable, and often a lot more fun, because of that brotherhood we developed. And beyond work, I genuinely admire the person and the amazing dad that you are. I’m sure you’re going to do absolutely fabulous in everything that comes your way. Keep being you, brother, and let’s make sure the virtual gang doesn’t disappear just because I’m leaving!" },
+    { title: "Hafsa Zabi", message: "Hafsa, it was really nice having you as part of the team and sharing this journey together. Thank you for all the support, conversations and the little moments along the way that made the experience memorable. I’m grateful our paths crossed, and I hope the next chapter brings you plenty of opportunities to learn, grow and do great things. Wishing you all the very best!" },
+    { title: "Suchitha Devadiga", message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" }
+  ];
 
   peopleGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.person-card');
@@ -582,7 +502,6 @@ Wishing each of you continued growth and many more great chapters ahead. This ma
   function closePeople(){
     peopleOverlay.classList.remove('open');
     document.body.style.overflow = '';
-    document.querySelectorAll('.person-card').forEach(card => card.classList.remove('show'));
   }
 
   peopleClose.addEventListener('click', closePeople);

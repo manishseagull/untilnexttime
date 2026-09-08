@@ -411,10 +411,10 @@
 <script>
 /* ------------------------------------------------------------------
    The notes. To add or edit someone, just change the arrays below.
-   Set SHOW_LEADERS to true once the "Managers & Leaders" notes are
-   written — while it is false, that section is hidden from the page.
+   SHOW_LEADERS controls whether the "Managers & Leaders" section
+   appears at all — set it to false to hide the section entirely.
 ------------------------------------------------------------------ */
-const SHOW_LEADERS = false;
+const SHOW_LEADERS = true;
 
 /* The Team — 14 notes */
 const teamMembers = [
@@ -448,7 +448,7 @@ const teamMembers = [
     message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" }
 ];
 
-/* Managers & Leaders — placeholders. Replace the text, then set SHOW_LEADERS = true above. */
+/* Managers & Leaders — still placeholders. Replace the names and messages below. */
 const leaders = [
   { name: "Manager & Leader 1",
     message: "[Personalized message — replace this with your note.]" },
@@ -495,7 +495,12 @@ function slugify(name){
     .replace(/^-+|-+$/g, '');
 }
 function initials(name){
-  return name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+  return name.split(/\s+/)
+    .filter(w => /^[a-z]/i.test(w))     // skip "&", "de", punctuation-only words
+    .slice(0, 2)
+    .map(w => w[0])
+    .join('')
+    .toUpperCase();
 }
 
 /* Sort every section alphabetically, and give each person a stable slug. */

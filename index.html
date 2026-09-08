@@ -295,12 +295,6 @@
     margin: 0 0 30px;
     max-width: 48ch;
   }
-  .overlay-actions{
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
 
   /* ---- Footer ---- */
   .footer{
@@ -400,10 +394,7 @@
       <span class="tag">personal note</span>
       <h2 id="overlay-title"></h2>
       <p id="overlay-message"></p>
-      <div class="overlay-actions">
-        <button type="button" class="close-btn" id="overlay-close">close ×</button>
-        <button type="button" class="close-btn" id="overlay-copy">copy link</button>
-      </div>
+      <button type="button" class="close-btn" id="overlay-close">close ×</button>
     </div>
   </div>
 </div>
@@ -448,16 +439,14 @@ const teamMembers = [
     message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" }
 ];
 
-/* Managers & Leaders — still placeholders. Replace the names and messages below. */
+/* Managers & Leaders — names are final, messages still to be written. */
 const leaders = [
-  { name: "Manager & Leader 1",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 2",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 3",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 4",
-    message: "[Personalized message — replace this with your note.]" }
+  { name: "Siddharth Malhotra",
+    message: "" },
+  { name: "Abhinaba Dasgupta",
+    message: "" },
+  { name: "Rohit Kumar Barpanda",
+    message: "" }
 ];
 
 /* ---------------- Scroll progress ---------------- */
@@ -480,7 +469,6 @@ const overlay       = document.getElementById('overlay');
 const overlayTitle  = document.getElementById('overlay-title');
 const overlayMsg    = document.getElementById('overlay-message');
 const overlayClose  = document.getElementById('overlay-close');
-const overlayCopy   = document.getElementById('overlay-copy');
 
 /* ---------------- Data helpers ---------------- */
 const SECTIONS = {
@@ -495,12 +483,10 @@ function slugify(name){
     .replace(/^-+|-+$/g, '');
 }
 function initials(name){
-  return name.split(/\s+/)
-    .filter(w => /^[a-z]/i.test(w))     // skip "&", "de", punctuation-only words
-    .slice(0, 2)
-    .map(w => w[0])
-    .join('')
-    .toUpperCase();
+  const words = name.split(/\s+/).filter(w => /^[a-z]/i.test(w));
+  if (!words.length) return '';
+  const picked = words.length === 1 ? [words[0]] : [words[0], words[words.length - 1]];
+  return picked.map(w => w[0]).join('').toUpperCase();
 }
 
 /* Sort every section alphabetically, and give each person a stable slug. */
@@ -626,7 +612,6 @@ function render(){
     const person = bySlug.get(slug);
     overlayTitle.textContent = person.name;
     overlayMsg.textContent = person.message;
-    overlayCopy.textContent = 'copy link';
     overlay.classList.add('open');
   } else {
     overlay.classList.remove('open');
@@ -658,24 +643,6 @@ function back(){
 peopleClose.addEventListener('click', () => history.back());
 overlayClose.addEventListener('click', back);
 overlay.addEventListener('click', e => { if (e.target === overlay || e.target.classList.contains('overlay-scroll')) back(); });
-
-overlayCopy.addEventListener('click', async () => {
-  const url = location.origin + location.pathname + location.hash;
-  try {
-    await navigator.clipboard.writeText(url);
-    overlayCopy.textContent = 'link copied ✓';
-  } catch {
-    const box = document.createElement('textarea');
-    box.value = url;
-    box.style.position = 'fixed';
-    box.style.opacity = '0';
-    document.body.appendChild(box);
-    box.select();
-    overlayCopy.textContent = document.execCommand('copy') ? 'link copied ✓' : 'press ⌘/Ctrl+C';
-    box.remove();
-  }
-  setTimeout(() => { overlayCopy.textContent = 'copy link'; }, 2500);
-});
 
 window.addEventListener('hashchange', render);
 render();

@@ -43,9 +43,8 @@ Every person has their own URL, built from their name:
 https://manishseagull.github.io/untilnexttime/#note/mayur-vaidakar
 ```
 
-Opening a note and pressing **copy link** copies that URL, so each person can be
-sent straight to their own message. The browser's Back button steps back
-note → list → page.
+Opening a note puts that URL in the address bar, so it can be copied and sent
+to that person directly. The browser's Back button steps back note → list → page.
 
 ## Regenerating the link-preview image
 

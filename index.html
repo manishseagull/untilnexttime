@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Until Next Time — Manish Sehgal</title>
+<meta name="description" content="A short thank-you note before I go, and a few personal messages along the way.">
+<meta name="theme-color" content="#F6F4EE">
+<link rel="canonical" href="https://manishseagull.github.io/untilnexttime/">
+<meta property="og:title" content="Until Next Time — Manish Sehgal">
+<meta property="og:description" content="A short thank-you note before I go, and a few personal messages along the way.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://manishseagull.github.io/untilnexttime/">
+<meta property="og:image" content="https://manishseagull.github.io/untilnexttime/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Thank you. — Manish Sehgal">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Until Next Time — Manish Sehgal">
+<meta name="twitter:description" content="A short thank-you note before I go, and a few personal messages along the way.">
+<meta name="twitter:image" content="https://manishseagull.github.io/untilnexttime/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%235A6E7A'/%3E%3Ctext x='32' y='42' font-family='Helvetica, Arial, sans-serif' font-size='28' font-weight='700' fill='%23F6F4EE' text-anchor='middle'%3EMS%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    --accent: #5A6E7A;      /* 4.84:1 on --bg — passes WCAG AA */
+    --bg: #F6F4EE;
+    --ink: #2E3A44;
+    --ink-soft: #4C5F6B;
+    --line: rgba(46,58,68,.16);
+    --blue-mid: #4C5F6B;
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  button{ font-family: inherit; }
+  [inert]{ user-select: none; }
+
+  .progress{
+    position: fixed; top: 0; left: 0;
+    height: 3px; width: 0;
+    background: var(--accent);
+    z-index: 50;
+  }
+
+  /* ---- Top bar ---- */
+  .topbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 22px clamp(20px, 4vw, 48px);
+  }
+  .topbar .mark{ font-weight: 700; font-size: .95rem; }
+  .topbar sup{ color: var(--accent); }
+
+  /* ---- Hero ---- */
+  .hero{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 82vh;
+  }
+  .hero-color{
+    position: relative;
+    background: var(--blue-mid);
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .hero-color .side-label{
+    position: absolute; top: 50%; left: 28px;
+    transform: translateY(-50%) rotate(180deg);
+    writing-mode: vertical-rl;
+    font-size: .68rem;
+    letter-spacing: .15em;
+    color: rgba(246,244,238,.9);   /* 5.27:1 on --blue-mid */
+  }
+  .hero-color .scroll-cue{
+    position: absolute; bottom: 28px; left: 28px;
+    font-size: .8rem;
+    color: rgba(246,244,238,.9);
+  }
+  .hero-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(40px, 6vw, 88px);
+    position: relative;
+  }
+  .hero-text h1{
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: .92;
+    margin: 0;
+    letter-spacing: -.02em;
+  }
+  .hero-text h1 span{ display: block; }
+  .hero-text h1 .dot{ display: inline; color: var(--accent); }
+  .hero-text .note{
+    margin-top: 28px;
+    max-width: 34ch;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .hero-text .sign{ margin-top: 22px; font-weight: 500; }
+  .hero-links{
+    position: absolute; top: 50%; right: clamp(16px, 3vw, 36px);
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 18px;
+    font-size: .75rem; letter-spacing: .06em;
+  }
+  .hero-links a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    writing-mode: vertical-rl;
+  }
+  .hero-links a:hover{ color: var(--ink); }
+
+  /* ---- Section chooser ---- */
+  .section-label{
+    padding: 70px clamp(20px, 4vw, 48px) 20px;
+    font-size: .85rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+  }
+  .section-board{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--line);
+  }
+  .section-board.single{ grid-template-columns: 1fr; }
+  .section-card{
+    all: unset;
+    cursor: pointer;
+    position: relative;
+    min-height: 220px;
+    padding: 36px clamp(20px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 8px;
+    transition: background .18s, color .18s;
+  }
+  .section-card:last-child{ border-right: none; }
+  .section-card:hover, .section-card:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+    outline: none;
+  }
+  .section-card-title{
+    font-size: clamp(1.7rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .section-card-subtitle{
+    font-size: .85rem;
+    color: var(--ink-soft);
+  }
+  .section-card:hover .section-card-subtitle,
+  .section-card:focus-visible .section-card-subtitle{ color: rgba(246,244,238,.75); }
+  .section-card-plus{
+    position: absolute; top: 30px; right: clamp(20px, 4vw, 48px);
+    color: var(--accent);
+    font-size: 1.8rem;
+  }
+  .section-card:hover .section-card-plus,
+  .section-card:focus-visible .section-card-plus{ color: var(--bg); }
+
+  /* ---- Overlays ---- */
+  .people-overlay, .overlay{
+    position: fixed; inset: 0;
+    background: var(--bg);
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;              /* keeps closed overlays out of the a11y tree */
+    pointer-events: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: opacity .2s ease, visibility .2s;
+  }
+  .people-overlay{ transform: translateY(8px); transition: opacity .2s, transform .2s, visibility .2s; }
+  .people-overlay.open, .overlay.open{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .people-overlay.open{ transform: translateY(0); }
+
+  .people-inner{
+    width: min(1100px, 100%);
+    margin: auto;
+    padding: 28px clamp(20px, 4vw, 48px) 60px;
+  }
+  .people-back, .close-btn{
+    all: unset;
+    cursor: pointer;
+    font-size: .9rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+  }
+  .people-back{ margin-bottom: 55px; }
+  .people-back:hover, .people-back:focus-visible,
+  .close-btn:hover, .close-btn:focus-visible{
+    color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .people-heading .tag, .overlay-inner .tag{
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);                /* 4.84:1 on --accent */
+    font-size: .72rem;
+    letter-spacing: .08em;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+  }
+  .people-heading h2{
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    line-height: .95;
+    margin: 0 0 12px;
+  }
+  .people-heading .count{
+    color: var(--ink-soft);
+    margin: 0 0 38px;
+    font-size: .95rem;
+  }
+  .people-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .person-card{
+    all: unset;
+    cursor: pointer;
+    min-height: 150px;
+    padding: 20px 24px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 1.15rem;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: background .15s, color .15s, opacity .35s, transform .35s;
+  }
+  .person-card.show{ opacity: 1; transform: none; }
+  .person-card:hover, .person-card:focus-visible{
+    background: var(--ink);
+    color: var(--bg);
+    outline: none;
+  }
+  .person-card .avatar{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: .78rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .person-card .row{
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+  }
+  .person-card .plus{ color: var(--accent); }
+  .person-card:hover .plus, .person-card:focus-visible .plus{ color: var(--bg); }
+
+  /* Note overlay: scrolls instead of clipping long notes on short screens */
+  .overlay{ z-index: 30; }
+  .overlay-scroll{
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(24px, 6vh, 64px) clamp(20px, 5vw, 32px);
+  }
+  .overlay-inner{ max-width: 620px; width: 100%; }
+  .overlay-inner h2{
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.05;
+    margin: 0 0 22px;
+  }
+  .overlay-inner p{
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 30px;
+    max-width: 48ch;
+  }
+  .overlay-actions{
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  /* ---- Footer ---- */
+  .footer{
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    padding: 40px clamp(20px, 4vw, 48px) 48px;
+    border-top: 1px solid var(--line);
+  }
+  .footer p{ margin: 0; font-size: .95rem; color: var(--ink-soft); }
+  .footer .links a{
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 22px;
+    font-size: .95rem;
+    border-bottom: 1px solid var(--ink);
+  }
+  .footer .links a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  @media(max-width: 720px){
+    .hero{ grid-template-columns: 1fr; }
+    .section-board{ grid-template-columns: 1fr; }
+    .section-card{ border-right: none; }
+    .people-grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media(max-width: 480px){
+    .people-grid{ grid-template-columns: 1fr; }
+    .hero-links{ display: none; }
+  }
+
+  @keyframes thank-you-slide{
+    0%{ opacity: 0; transform: translateX(32px); }
+    20%{ opacity: 1; }
+    100%{ opacity: 1; transform: translateX(0); }
+  }
+  .hero-text h1{ animation: thank-you-slide 5s cubic-bezier(.22,1,.36,1) both; }
+
+  @media(prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    .hero-text h1{ animation: none; }
+    .person-card{ transition: background .15s, color .15s; opacity: 1; transform: none; }
+    .people-overlay, .overlay{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<main id="page">
+  <div class="topbar"><span class="mark">Manish Sehgal<sup>.</sup></span></div>
+
+  <div class="hero">
+    <div class="hero-color">
+      <span class="side-label">FAREWELL NOTE</span>
+      <span class="scroll-cue">↓<br>scroll</span>
+    </div>
+    <div class="hero-text">
+      <h1><span>THANK</span><span>YOU<span class="dot">.</span></span></h1>
+      <p class="note">Every chapter teaches us something — not just through the work, but through the people we meet along the way. I’ve learned a lot from each of you, and from the people who were part of this team before us. Thank you for the conversations, the support, the challenges, the laughs, and everything in between.<br><br>Wishing each of you continued growth and many more great chapters ahead. This may be a goodbye to the everyday, but it doesn’t have to be goodbye altogether. I’m always just a phone call away — whether you need a hand, want to catch up, or simply feel like saying hello.</p>
+      <p class="sign">— Manish Sehgal</p>
+      <div class="hero-links">
+        <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LINKEDIN</a>
+        <a href="mailto:sehgalmanish563@gmail.com">EMAIL</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="section-label">A few notes for different people — choose a section to explore</p>
+
+  <div class="section-board" id="section-board"></div>
+
+  <div class="footer">
+    <p>This isn’t goodbye — let’s stay in touch.</p>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:sehgalmanish563@gmail.com">Email</a>
+      <a href="https://wa.me/918093319923" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</main>
+
+<div class="people-overlay" id="people-overlay" role="dialog" aria-modal="true" aria-labelledby="people-heading-title" inert>
+  <div class="people-inner">
+    <button type="button" class="people-back" id="people-close">← back</button>
+    <div class="people-heading">
+      <span class="tag" id="people-tag">THE TEAM</span>
+      <h2 id="people-heading-title">The Team</h2>
+      <p class="count" id="people-count">Choose a name to read the personal note.</p>
+    </div>
+    <div class="people-grid" id="people-grid"></div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title" inert>
+  <div class="overlay-scroll">
+    <div class="overlay-inner">
+      <span class="tag">personal note</span>
+      <h2 id="overlay-title"></h2>
+      <p id="overlay-message"></p>
+      <div class="overlay-actions">
+        <button type="button" class="close-btn" id="overlay-close">close ×</button>
+        <button type="button" class="close-btn" id="overlay-copy">copy link</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ------------------------------------------------------------------
+   The notes. To add or edit someone, just change the arrays below.
+   SHOW_LEADERS controls whether the "Managers & Leaders" section
+   appears at all — set it to false to hide the section entirely.
+------------------------------------------------------------------ */
+const SHOW_LEADERS = true;
+
+/* The Team — 14 notes */
+const teamMembers = [
+  { name: "Arumalla Duharika",
+    message: "Duharika, welcome to the team! You joined us and almost immediately had another big milestone to celebrate — congratulations on tying the knot! Wishing you all the happiness and success as you begin this new chapter, both personally and professionally. I’m sure you’re going to do wonderfully here. All the very best for everything ahead!" },
+  { name: "Ankita Balyan",
+    message: "Ankita, it was lovely having you as part of the team. Thank you for all the conversations, support and the little moments that made the workdays more enjoyable. I’m glad our paths crossed during my time here, and I hope you continue to learn, grow and do great things. Wishing you nothing but the very best for everything ahead!" },
+  { name: "Subhadip Bose",
+    message: "Subhadip, every conversation with you was entertaining, interesting, and somehow always left me with something new to think about. I’ve genuinely learnt a lot just by watching your style of working and the way you approach things. It would have been even more fun if you had actually been with us in Bangalore — I’m sure we would have had quite a few stories to tell! Wishing you all the best, and hopefully our paths cross again." },
+  { name: "Anzia Joseph",
+    message: "Anzia, I think it’s safe to say that the team’s fashion quotient was never complete without you! 😄 Beyond the style, it was always lovely having you around and being part of the team. Thank you for all the good moments and for making the workplace a little more lively. Wishing you loads of success and happiness in everything that comes next!" },
+  { name: "Jyoti Kumari",
+    message: "Jyoti, although our interactions were relatively short, I have a feeling you’ve already gotten the hang of things here rather quickly. You seem to have settled in and found your rhythm in no time. I’m sure there’s a lot more ahead for you, and I hope you continue to learn, grow and make the most of the opportunities that come your way. All the very best!" },
+  { name: "Sudha Kumari",
+    message: "Sudha, thank you for always being so understanding and accommodating, especially with all my last-minute shift-swap requests! 😄 I know I probably tested your flexibility more than a few times, but you were always willing to help and make things work. I really appreciate that. Thank you for being such a dependable teammate, and I wish you nothing but the very best ahead!" },
+  { name: "Deeya Mukherjee",
+    message: "Deeya, you were the second person in this team who could put the fear of God in me! 😄 But honestly, thank you for pushing me to deliver the best possible outcome and for never hesitating to challenge me when you knew something could be better. And despite all that, you were always there whenever I had a doubt or needed help. I genuinely appreciate that balance of pushing me and supporting me. It was a pleasure working with you — keep being awesome!" },
+  { name: "Ankitha Nayak",
+    message: "Ankitha, the unofficial gang leader! 😄 Going to the office was honestly a lot more fun because of you and the gang. A big part of the memories I’m taking away from here are those little moments outside of work that made the workdays enjoyable. I’m definitely looking forward to joining you guys for a weekend run soon — only if Bangalore wasn’t quite this big! 😂 Keep the gang together, and I hope we stay in touch." },
+  { name: "Manjima Shaju",
+    message: "Manjima, anxious, meticulous, methodical, curious and incredibly diligent — that’s quite a combination! 😄 From the beginning, it was clear that you genuinely wanted to understand things properly rather than just get through them, and that’s something I really admired. It was a pleasure helping you learn the ropes of IT, and I have high hopes for what you’ll go on to do. I hope this phase of your journey was as memorable for you as it was for me. Keep asking questions, keep learning and keep growing!" },
+  { name: "Nagarjun Sunku",
+    message: "Nagarjun, thank you for believing in me and for helping me grow throughout my time here. What I find incredible is how much I’ve seen you grow as well — both personally and professionally — and how that growth consistently inspired me to keep pushing myself too. I’m genuinely grateful that our paths crossed, and I hope they cross again somewhere down the road. It would be great to work together again someday. Until then, keep growing and inspiring!" },
+  { name: "Wafi Mirza",
+    message: "Wafi, while we may not have had as many opportunities to interact, I’m glad we got to be part of the same team and share this part of the journey. Thank you for being a good teammate and for all the interactions we did have. Wishing you continued success, plenty of learning and many good things ahead. All the very best for your journey!" },
+  { name: "Mayur Vaidakar",
+    message: "Mayur, the last man standing! 😄 You were a very important part of our little virtual gang — a gang that somehow managed to build such a strong bond without ever really managing to meet offline. Work was definitely a lot more bearable, and often a lot more fun, because of that brotherhood we developed. And beyond work, I genuinely admire the person and the amazing dad that you are. I’m sure you’re going to do absolutely fabulous in everything that comes your way. Keep being you, brother, and let’s make sure the virtual gang doesn’t disappear just because I’m leaving!" },
+  { name: "Hafsa Zabi",
+    message: "Hafsa, it was really nice having you as part of the team and sharing this journey together. Thank you for all the support, conversations and the little moments along the way that made the experience memorable. I’m grateful our paths crossed, and I hope the next chapter brings you plenty of opportunities to learn, grow and do great things. Wishing you all the very best!" },
+  { name: "Suchitha Devadiga",
+    message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" }
+];
+
+/* Managers & Leaders — still placeholders. Replace the names and messages below. */
+const leaders = [
+  { name: "Manager & Leader 1",
+    message: "[Personalized message — replace this with your note.]" },
+  { name: "Manager & Leader 2",
+    message: "[Personalized message — replace this with your note.]" },
+  { name: "Manager & Leader 3",
+    message: "[Personalized message — replace this with your note.]" },
+  { name: "Manager & Leader 4",
+    message: "[Personalized message — replace this with your note.]" }
+];
+
+/* ---------------- Scroll progress ---------------- */
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = (h ? window.scrollY / h * 100 : 0) + '%';
+});
+
+/* ---------------- Elements ---------------- */
+const page          = document.getElementById('page');
+const sectionBoard  = document.getElementById('section-board');
+const peopleOverlay = document.getElementById('people-overlay');
+const peopleGrid    = document.getElementById('people-grid');
+const peopleClose   = document.getElementById('people-close');
+const peopleTitle   = document.getElementById('people-heading-title');
+const peopleTag     = document.getElementById('people-tag');
+const peopleCount   = document.getElementById('people-count');
+const overlay       = document.getElementById('overlay');
+const overlayTitle  = document.getElementById('overlay-title');
+const overlayMsg    = document.getElementById('overlay-message');
+const overlayClose  = document.getElementById('overlay-close');
+const overlayCopy   = document.getElementById('overlay-copy');
+
+/* ---------------- Data helpers ---------------- */
+const SECTIONS = {
+  team:    { label: 'The Team',            tag: 'THE TEAM',            people: teamMembers },
+  leaders: { label: 'Managers & Leaders',  tag: 'MANAGERS & LEADERS',  people: leaders }
+};
+
+function slugify(name){
+  return name.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+function initials(name){
+  return name.split(/\s+/)
+    .filter(w => /^[a-z]/i.test(w))     // skip "&", "de", punctuation-only words
+    .slice(0, 2)
+    .map(w => w[0])
+    .join('')
+    .toUpperCase();
+}
+
+/* Sort every section alphabetically, and give each person a stable slug. */
+const bySlug = new Map();
+for (const key of Object.keys(SECTIONS)){
+  const s = SECTIONS[key];
+  s.people = s.people.slice().sort((a, b) => a.name.localeCompare(b.name));
+  s.people.forEach(p => {
+    p.slug = slugify(p.name);
+    p.section = key;
+    bySlug.set(p.slug, p);
+  });
+}
+
+const visibleSections = Object.keys(SECTIONS)
+  .filter(key => key !== 'leaders' || SHOW_LEADERS);
+
+/* ---------------- Section cards ---------------- */
+sectionBoard.classList.toggle('single', visibleSections.length === 1);
+sectionBoard.innerHTML = visibleSections.map(key => {
+  const s = SECTIONS[key];
+  const n = s.people.length;
+  return '<button type="button" class="section-card" data-section="' + key + '">' +
+           '<span class="section-card-title">' + s.label.replace('&', '&amp;') + '</span>' +
+           '<span class="section-card-subtitle">' + n + (n === 1 ? ' note' : ' notes') + '</span>' +
+           '<span class="section-card-plus" aria-hidden="true">+</span>' +
+         '</button>';
+}).join('');
+
+sectionBoard.addEventListener('click', e => {
+  const card = e.target.closest('.section-card');
+  if (card) go('#' + card.dataset.section);
+});
+
+peopleGrid.addEventListener('click', e => {
+  const card = e.target.closest('.person-card');
+  if (card) go('#note/' + card.dataset.slug);
+});
+
+/* ---------------- Focus management ---------------- */
+const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
+let focusBeforeOverlay = null;
+
+function topDialog(){
+  if (overlay.classList.contains('open')) return overlay;
+  if (peopleOverlay.classList.contains('open')) return peopleOverlay;
+  return null;
+}
+
+/* Only the top-most open dialog stays reachable; everything else is inert. */
+function syncInert(){
+  const top = topDialog();
+  page.toggleAttribute('inert', top !== null);
+  overlay.toggleAttribute('inert', top !== overlay);
+  peopleOverlay.toggleAttribute('inert', top !== peopleOverlay);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape'){ e.preventDefault(); back(); return; }
+  if (e.key !== 'Tab') return;
+  const dialog = topDialog();
+  if (!dialog) return;
+  const items = [...dialog.querySelectorAll(FOCUSABLE)].filter(el => el.offsetParent !== null);
+  if (!items.length) return;
+  const first = items[0], last = items[items.length - 1];
+  if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+});
+
+/* ---------------- Rendering ---------------- */
+let renderedSection = null;
+
+function renderPeople(sectionKey){
+  if (renderedSection === sectionKey) return;
+  renderedSection = sectionKey;
+  const s = SECTIONS[sectionKey];
+  peopleTitle.textContent = s.label;
+  peopleTag.textContent = s.tag;
+  peopleCount.textContent = s.people.length + ' notes — choose a name to read it';
+  peopleGrid.innerHTML = s.people.map(p =>
+    '<button type="button" class="person-card" data-slug="' + p.slug + '">' +
+      '<span class="avatar" aria-hidden="true">' + initials(p.name) + '</span>' +
+      '<span class="row">' + p.name + '<span class="plus" aria-hidden="true">+</span></span>' +
+    '</button>'
+  ).join('');
+  requestAnimationFrame(() => {
+    peopleGrid.querySelectorAll('.person-card').forEach((c, i) => {
+      c.style.transitionDelay = (i * 40) + 'ms';
+      requestAnimationFrame(() => c.classList.add('show'));
+    });
+  });
+}
+
+/* Parse the URL into { section, slug }. This is the single source of truth,
+   which is what makes the browser's Back button close overlays. */
+function parseHash(){
+  const hash = location.hash.replace(/^#/, '');
+  if (hash.startsWith('note/')){
+    const person = bySlug.get(hash.slice(5));
+    if (person) return { section: person.section, slug: person.slug };
+    return {};
+  }
+  if (SECTIONS[hash] && visibleSections.includes(hash)) return { section: hash };
+  return {};
+}
+
+function render(){
+  const { section, slug } = parseHash();
+  const wasOpen = topDialog() !== null;
+  if (!wasOpen && (section || slug)) focusBeforeOverlay = document.activeElement;
+
+  if (section){
+    renderPeople(section);
+    peopleOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } else {
+    peopleOverlay.classList.remove('open');
+    renderedSection = null;
+    document.body.style.overflow = '';
+  }
+
+  if (slug){
+    const person = bySlug.get(slug);
+    overlayTitle.textContent = person.name;
+    overlayMsg.textContent = person.message;
+    overlayCopy.textContent = 'copy link';
+    overlay.classList.add('open');
+  } else {
+    overlay.classList.remove('open');
+  }
+
+  syncInert();
+
+  const top = topDialog();
+  if (top){
+    const target = top === overlay ? overlayClose : peopleClose;
+    if (!top.contains(document.activeElement)) target.focus();
+  } else if (wasOpen && focusBeforeOverlay){
+    focusBeforeOverlay.focus();
+    focusBeforeOverlay = null;
+  }
+}
+
+/* ---------------- Navigation ---------------- */
+function go(hash){
+  if (location.hash === hash) render();
+  else location.hash = hash;
+}
+function back(){
+  const { section, slug } = parseHash();
+  if (slug) go('#' + section);           // note -> its people list
+  else if (section) history.back();      // people list -> wherever they came from
+}
+
+peopleClose.addEventListener('click', () => history.back());
+overlayClose.addEventListener('click', back);
+overlay.addEventListener('click', e => { if (e.target === overlay || e.target.classList.contains('overlay-scroll')) back(); });
+
+overlayCopy.addEventListener('click', async () => {
+  const url = location.origin + location.pathname + location.hash;
+  try {
+    await navigator.clipboard.writeText(url);
+    overlayCopy.textContent = 'link copied ✓';
+  } catch {
+    const box = document.createElement('textarea');
+    box.value = url;
+    box.style.position = 'fixed';
+    box.style.opacity = '0';
+    document.body.appendChild(box);
+    box.select();
+    overlayCopy.textContent = document.execCommand('copy') ? 'link copied ✓' : 'press ⌘/Ctrl+C';
+    box.remove();
+  }
+  setTimeout(() => { overlayCopy.textContent = 'copy link'; }, 2500);
+});
+
+window.addEventListener('hashchange', render);
+render();
+</script>
+
+</body>
+</html>

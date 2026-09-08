@@ -295,12 +295,6 @@
     margin: 0 0 30px;
     max-width: 48ch;
   }
-  .overlay-actions{
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
 
   /* ---- Footer ---- */
   .footer{
@@ -400,10 +394,7 @@
       <span class="tag">personal note</span>
       <h2 id="overlay-title"></h2>
       <p id="overlay-message"></p>
-      <div class="overlay-actions">
-        <button type="button" class="close-btn" id="overlay-close">close ×</button>
-        <button type="button" class="close-btn" id="overlay-copy">copy link</button>
-      </div>
+      <button type="button" class="close-btn" id="overlay-close">close ×</button>
     </div>
   </div>
 </div>
@@ -480,7 +471,6 @@ const overlay       = document.getElementById('overlay');
 const overlayTitle  = document.getElementById('overlay-title');
 const overlayMsg    = document.getElementById('overlay-message');
 const overlayClose  = document.getElementById('overlay-close');
-const overlayCopy   = document.getElementById('overlay-copy');
 
 /* ---------------- Data helpers ---------------- */
 const SECTIONS = {
@@ -626,7 +616,6 @@ function render(){
     const person = bySlug.get(slug);
     overlayTitle.textContent = person.name;
     overlayMsg.textContent = person.message;
-    overlayCopy.textContent = 'copy link';
     overlay.classList.add('open');
   } else {
     overlay.classList.remove('open');
@@ -658,24 +647,6 @@ function back(){
 peopleClose.addEventListener('click', () => history.back());
 overlayClose.addEventListener('click', back);
 overlay.addEventListener('click', e => { if (e.target === overlay || e.target.classList.contains('overlay-scroll')) back(); });
-
-overlayCopy.addEventListener('click', async () => {
-  const url = location.origin + location.pathname + location.hash;
-  try {
-    await navigator.clipboard.writeText(url);
-    overlayCopy.textContent = 'link copied ✓';
-  } catch {
-    const box = document.createElement('textarea');
-    box.value = url;
-    box.style.position = 'fixed';
-    box.style.opacity = '0';
-    document.body.appendChild(box);
-    box.select();
-    overlayCopy.textContent = document.execCommand('copy') ? 'link copied ✓' : 'press ⌘/Ctrl+C';
-    box.remove();
-  }
-  setTimeout(() => { overlayCopy.textContent = 'copy link'; }, 2500);
-});
 
 window.addEventListener('hashchange', render);
 render();

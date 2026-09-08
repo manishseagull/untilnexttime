@@ -439,16 +439,14 @@ const teamMembers = [
     message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" }
 ];
 
-/* Managers & Leaders — still placeholders. Replace the names and messages below. */
+/* Managers & Leaders — names are final, messages still to be written. */
 const leaders = [
-  { name: "Manager & Leader 1",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 2",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 3",
-    message: "[Personalized message — replace this with your note.]" },
-  { name: "Manager & Leader 4",
-    message: "[Personalized message — replace this with your note.]" }
+  { name: "Siddharth Malhotra",
+    message: "" },
+  { name: "Abhinaba Dasgupta",
+    message: "" },
+  { name: "Rohit Kumar Barpanda",
+    message: "" }
 ];
 
 /* ---------------- Scroll progress ---------------- */
@@ -485,12 +483,10 @@ function slugify(name){
     .replace(/^-+|-+$/g, '');
 }
 function initials(name){
-  return name.split(/\s+/)
-    .filter(w => /^[a-z]/i.test(w))     // skip "&", "de", punctuation-only words
-    .slice(0, 2)
-    .map(w => w[0])
-    .join('')
-    .toUpperCase();
+  const words = name.split(/\s+/).filter(w => /^[a-z]/i.test(w));
+  if (!words.length) return '';
+  const picked = words.length === 1 ? [words[0]] : [words[0], words[words.length - 1]];
+  return picked.map(w => w[0]).join('').toUpperCase();
 }
 
 /* Sort every section alphabetically, and give each person a stable slug. */

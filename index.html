@@ -629,22 +629,41 @@ function render(){
   }
 }
 
-/* ---------------- Navigation ---------------- */
+/* ---------------- Navigation ----------------
+   Each step in (page -> list -> note) pushes a history entry, and every step
+   out pops one, so the browser's Back button and the page's own back controls
+   stay in agreement. `depth` counts the entries this page pushed: at 0 there
+   is nothing of ours to pop, which is the case when someone arrives straight
+   at a #note/... link, so we rewrite the URL in place instead of pushing the
+   note back onto the stack in front of them.
+------------------------------------------------------------------------- */
+function depth(){
+  return (history.state && typeof history.state.depth === 'number') ? history.state.depth : 0;
+}
 function go(hash){
-  if (location.hash === hash) render();
-  else location.hash = hash;
+  if (location.hash === hash){ render(); return; }
+  history.pushState({ depth: depth() + 1 }, '', hash);
+  render();
+}
+function retreat(hash){
+  if (depth() > 0){ history.back(); return; }   // popstate re-renders
+  history.replaceState({ depth: 0 }, '', hash || location.pathname + location.search);
+  render();
 }
 function back(){
   const { section, slug } = parseHash();
-  if (slug) go('#' + section);           // note -> its people list
-  else if (section) history.back();      // people list -> wherever they came from
+  if (slug) retreat('#' + section);      // note -> its people list
+  else if (section) retreat('');         // people list -> the page
 }
 
-peopleClose.addEventListener('click', () => history.back());
+peopleClose.addEventListener('click', back);
 overlayClose.addEventListener('click', back);
 overlay.addEventListener('click', e => { if (e.target === overlay || e.target.classList.contains('overlay-scroll')) back(); });
 
-window.addEventListener('hashchange', render);
+window.addEventListener('popstate', render);
+window.addEventListener('hashchange', render);   // hash typed into the address bar
+
+if (!history.state) history.replaceState({ depth: 0 }, '');
 render();
 </script>
 

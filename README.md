@@ -31,9 +31,8 @@ const teamMembers = [
 ```
 
 - Names are sorted alphabetically automatically — add new people anywhere in the array.
-- The **Managers & Leaders** entries are still placeholders — replace the names
-  and messages in the `leaders` array. Setting `SHOW_LEADERS = false` hides that
-  section from the page entirely.
+- **Managers & Leaders** notes live in the `leaders` array, same shape.
+  Setting `SHOW_LEADERS = false` hides that section from the page entirely.
 
 ## Sharing an individual note
 

@@ -304,14 +304,23 @@
     border-top: 1px solid var(--line);
   }
   .footer p{ margin: 0; font-size: .95rem; color: var(--ink-soft); }
+  .footer .links{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+  }
   .footer .links a{
     color: var(--ink);
     text-decoration: none;
-    margin-left: 22px;
     font-size: .95rem;
     border-bottom: 1px solid var(--ink);
   }
-  .footer .links a:hover{ color: var(--accent); border-color: var(--accent); }
+  .footer .links a:hover, .footer .links a:focus-visible{
+    color: var(--accent);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .footer .links .cat{ color: var(--ink-soft); border-color: var(--ink-soft); }
 
   @media(max-width: 720px){
     .hero{ grid-template-columns: 1fr; }
@@ -370,8 +379,10 @@
     <p>This isn’t goodbye — let’s stay in touch.</p>
     <div class="links">
       <a href="https://www.linkedin.com/in/manishsehgal77/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:sehgalmanish563@gmail.com">Email</a>
+      <a href="https://www.instagram.com/monis_seagull/" target="_blank" rel="noopener">Instagram</a>
+      <a class="cat" href="https://www.instagram.com/into_the_ollieverse/" target="_blank" rel="noopener">and my cat</a>
       <a href="https://wa.me/918093319923" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:sehgalmanish563@gmail.com">Email</a>
     </div>
   </div>
 </main>
@@ -437,7 +448,7 @@ const teamMembers = [
     message: "Hafsa, it was really nice having you as part of the team and sharing this journey together. Thank you for all the support, conversations and the little moments along the way that made the experience memorable. I’m grateful our paths crossed, and I hope the next chapter brings you plenty of opportunities to learn, grow and do great things. Wishing you all the very best!" },
   { name: "Suchitha Devadiga",
     message: "Suchitha, always up for sharing tea — quite literally! ☕️ It was genuinely fun having you around, especially when I could poke fun at you and you were always such a good sport about it. 😄 It was also a pleasure showing you some of the little tricks and shortcuts along the way, although I’m pretty sure you’ll soon have plenty of your own. I’m confident you’re going to do really well as you continue in this role. Keep learning, keep growing, and most importantly, keep the tea conversations going!" },
-  { name: "Noopur",
+  { name: "Noopur Mittal",
     message: "I was told that I was brought in as your replacement, so thank you for giving me your spot and, in the process, giving me the opportunity to work with such an amazing team. I have truly enjoyed being a part of this journey. Wishing you continued success in your career and all the very best for the future." }
 ];
 
